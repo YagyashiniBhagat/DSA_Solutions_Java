@@ -1,0 +1,19 @@
+class Solution {
+    public String countAndSay(int n) {
+        if(n==1) return "1";
+        String num=countAndSay(n-1);
+        char[] arr=num.toCharArray();
+        StringBuilder ans=new StringBuilder();
+        for(int i=0;i<arr.length;i++){
+            char ch=arr[i];
+            int c=1;
+            while(i+1<arr.length && arr[i]==arr[i+1]){
+                c++;
+                i++;
+            }
+            ans.append(c);
+            ans.append(ch);
+        }
+    return ans.toString();
+    }
+}
