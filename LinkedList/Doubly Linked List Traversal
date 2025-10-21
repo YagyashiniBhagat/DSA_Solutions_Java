@@ -1,0 +1,26 @@
+/*
+class Node
+{
+    int data;
+    Node next, prev;
+    Node(int data)
+    {
+        this.data = data;
+        this.next = null;
+        this.prev = null;
+    }
+}
+*/
+class Solution {
+    public static ArrayList<Integer> displayList(Node head) {
+        // your code here
+        Node temp=head;
+        ArrayList<Integer> res=new ArrayList<>();
+        while(temp.next!=null){
+            res.add(temp.data);
+            temp=temp.next;
+        }
+        res.add(temp.data);
+        return res;
+    }
+}
