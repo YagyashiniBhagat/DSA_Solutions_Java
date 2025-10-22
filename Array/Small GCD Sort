@@ -1,0 +1,33 @@
+import java.util.*;
+import java.lang.*;
+import java.io.*;
+
+class Codechef
+{
+    public static int gcd(int x,int y){
+        while(y!=0){
+            int temp=y;
+            y=x%y;
+            x=temp;
+        }
+        return x;
+    }
+	public static void main (String[] args) throws java.lang.Exception
+	{
+		// your code goes here
+        Scanner sc=new Scanner(System.in);
+        int t=sc.nextInt();
+        while(t-- > 0){
+            int n=sc.nextInt();
+            List<int[]> players=new ArrayList<>();
+            for(int p=1;p<=n;p++){
+                players.add(new int[]{p,gcd(p,n)});
+            }
+            players.sort(
+                (a,b) -> b[1]!=a[1] ? b[1]-a[1] : a[0]-b[0]
+                );
+            for(int[] py:players) System.out.print(py[0]+" ");
+            System.out.println();
+        }
+	}
+}
