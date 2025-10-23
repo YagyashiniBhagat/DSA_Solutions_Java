@@ -1,0 +1,33 @@
+class Solution {
+    public int square(int[] arr){
+        return arr[0]*arr[0] + arr[1]*arr[1];
+    }
+    public ArrayList<ArrayList<Integer>> kClosest(int[][] points, int k) {
+        // code here
+        PriorityQueue<int[]> pq=new PriorityQueue<>(
+            (a,b) -> b[0]-a[0]
+            );
+        for(int i=0;i<points.length;i++){
+            int dist=square(points[i]);
+            int[] ans=new int[]{dist,i};
+            
+            if(pq.size()<k){
+                pq.add(ans);
+            }else{
+                if(dist<pq.peek()[0]){
+                    pq.poll();
+                    pq.add(ans);
+                }
+            }
+        }
+        ArrayList<ArrayList<Integer>> res=new ArrayList<>();
+        while(!pq.isEmpty()){
+            int ind=pq.poll()[1];
+            ArrayList<Integer> op=new ArrayList<>();
+            op.add(points[ind][0]);
+            op.add(points[ind][1]);
+            res.add(op);
+        }
+        return res;
+    }
+}
