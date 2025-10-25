@@ -1,0 +1,17 @@
+class Solution {
+    public int totalMoney(int n) {
+        int mon=1,ans=0;
+        int curr=mon;
+        for(int i=1;i<=n;i++){
+            ans+=curr;
+            if(i%7==0){
+                mon++;
+                curr=mon;
+            }
+            else{
+                curr++;
+            }
+        }
+        return ans;
+    }
+}
