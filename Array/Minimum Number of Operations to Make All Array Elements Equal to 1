@@ -1,0 +1,28 @@
+class Solution {
+    public int gcd(int a,int b){
+        return b==0 ? a : gcd(b,a%b);
+    }
+    public int minOperations(int[] nums) {
+        int n=nums.length;
+        int onec=0;
+        for(int num:nums){
+            if(num==1) onec++;
+        }
+        if(onec>0) return n-onec;
+
+        int minlen=Integer.MAX_VALUE;
+        for(int i=0;i<n;i++){
+            int g=nums[i];
+            for(int j=i;j<n;j++){
+                g=gcd(g,nums[j]);
+                if(g==1){
+                    minlen=Math.min(minlen,j-i+1);
+                    break;
+                }
+            }
+        }
+        if(minlen==Integer.MAX_VALUE) return -1;
+
+        return n+minlen-2;
+    }
+}
