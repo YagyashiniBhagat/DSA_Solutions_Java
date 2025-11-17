@@ -1,0 +1,16 @@
+class Solution {
+    void generate(int n,String curr,ArrayList<String> ans){
+        if(curr.length()==n){
+            ans.add(curr);
+            return;
+        }
+        generate(n,curr+"0",ans);
+        generate(n,curr+"1",ans);
+    }
+    public ArrayList<String> binstr(int n) {
+        // code here
+        ArrayList<String> ans=new ArrayList<>();
+        generate(n,"",ans);
+        return ans;
+    }
+}
