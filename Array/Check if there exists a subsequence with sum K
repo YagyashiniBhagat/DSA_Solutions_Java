@@ -1,0 +1,17 @@
+// User function Template for Java
+
+class Solution {
+    static boolean sum(int i,int n,int[] arr,int k,int s){
+        if(s>k) return false;
+        if(i==n){
+            return s==k;
+        }
+        if(sum(i+1,n,arr,k,s+arr[i])) return true;
+        if (sum(i+1,n,arr,k,s)) return true;
+        return false;
+    }
+    public static boolean checkSubsequenceSum(int n, int[] arr, int k) {
+        // code here
+        return sum(0,n,arr,k,0);
+    }
+}
