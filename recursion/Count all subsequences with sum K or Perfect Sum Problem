@@ -1,0 +1,12 @@
+class Solution {
+    // Function to calculate the number of subsets with a given sum
+    public int count(int i,int[] nums,int sum){
+        if(sum==0) return 1;
+        if(sum<0 || i==nums.length) return 0;
+        return count(i+1,nums,sum-nums[i]) + count(i+1,nums,sum);
+    }
+    public int perfectSum(int[] nums, int target) {
+        // code here
+        return count(0,nums,target);
+    }
+}
