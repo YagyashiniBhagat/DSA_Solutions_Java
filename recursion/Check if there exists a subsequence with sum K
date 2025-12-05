@@ -1,0 +1,14 @@
+// User function Template for Java
+
+class Solution {
+    public static boolean check(int[] arr,int i,int s){
+        if(s==0) return true;
+        if(s<0 || i==arr.length) return false;
+        if(check(arr,i+1,s-arr[i])) return true;
+        return check(arr,i+1,s);
+    }
+    public static boolean checkSubsequenceSum(int N, int[] arr, int K) {
+        // code here
+        return check(arr,0,K);
+    }
+}
