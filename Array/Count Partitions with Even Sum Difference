@@ -1,0 +1,22 @@
+class Solution {
+    // public int sum(int[] nums,int start,int end){
+    //     int s=0;
+    //     for(int i=start;i<=end;i++)
+    //         s+=nums[i];
+    //     return s;
+    // }
+    public int countPartitions(int[] nums) {
+        // int n=nums.length,c=0;
+        // for(int i=0;i<n-1;i++){
+        //     int suml=sum(nums,0,i);
+        //     int sumr=sum(nums,i+1,n-1);
+        //     if((suml-sumr)%2==0) c++;
+        // }
+        // return c;
+        int n=nums.length;
+        int tot=0;
+        for(int num:nums) tot+=num;
+        if(tot%2==0) return n-1;
+        return 0;
+    }
+}
