@@ -1,0 +1,20 @@
+class Solution {
+    static final int mod=1000000007;
+    public int specialTriplets(int[] nums) {
+        HashMap<Integer,Integer> left=new HashMap<>();
+        HashMap<Integer,Integer> right=new HashMap<>();
+        long c=0;
+        for(int num:nums){
+            right.put(num,right.getOrDefault(num,0)+1);
+        }
+        for(int i=0;i<nums.length;i++){
+            int x=nums[i]*2;
+            right.put(nums[i],right.get(nums[i])-1);
+            long leftcnt=left.getOrDefault(x,0);
+            long rightcnt=right.getOrDefault(x,0);
+            c=(c+(leftcnt*rightcnt)%mod)%mod;
+            left.put(nums[i],left.getOrDefault(nums[i],0)+1);
+        }
+        return (int)c;
+    }
+}
