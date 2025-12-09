@@ -1,0 +1,18 @@
+// User function Template for Java//User function Template for Java
+class Solution {
+    public void findsum(int i,int s,int[] arr,ArrayList<Integer> ans){
+        if(i==arr.length){
+            ans.add(s);
+            return;
+        }
+        findsum(i+1,s+arr[i],arr,ans);
+        findsum(i+1,s,arr,ans);
+    }
+    public ArrayList<Integer> subsetSums(int[] arr) {
+        // code here
+        ArrayList<Integer> ans=new ArrayList<>();
+        findsum(0,0,arr,ans);
+        Collections.sort(ans);
+        return ans;
+    }
+}
