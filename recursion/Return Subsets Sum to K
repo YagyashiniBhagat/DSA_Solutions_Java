@@ -1,0 +1,23 @@
+import java.util.ArrayList;
+public class Solution 
+{
+    public static void find(ArrayList<Integer> arr,int i,int n, int sum,int k,ArrayList<Integer> curr,ArrayList<ArrayList<Integer>> ans){
+        if(i==n){
+            if(sum==k) ans.add(new ArrayList<>(curr));
+            return;
+        }
+        curr.add(arr.get(i));
+        find(arr,i+1,n,sum+arr.get(i),k,curr,ans);
+        curr.remove(curr.size()-1);
+        find(arr,i+1,n,sum,k,curr,ans);
+
+    }
+    public static ArrayList<ArrayList<Integer>> findSubsetsThatSumToK(ArrayList<Integer> arr, int n, int k) 
+	{
+        // Write your code here.
+        ArrayList<ArrayList<Integer>> ans=new ArrayList<>();
+        ArrayList<Integer> curr=new ArrayList<>();
+        find(arr,0,n,0,k,curr,ans);
+        return ans;
+    }
+}
