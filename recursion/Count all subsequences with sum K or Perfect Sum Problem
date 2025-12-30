@@ -1,12 +1,17 @@
 class Solution {
-    // Function to calculate the number of subsets with a given sum
-    public int count(int i,int[] nums,int sum){
-        if(sum==0) return 1;
-        if(sum<0 || i==nums.length) return 0;
-        return count(i+1,nums,sum-nums[i]) + count(i+1,nums,sum);
+    public void generate(int[] nums,int i,List<Integer> curr,List<List<Integer>> ans){
+        if(i==nums.length){
+            ans.add(new ArrayList<>(curr));
+            return;
+        }
+        curr.add(nums[i]);
+        generate(nums,i+1,curr,ans);
+        curr.remove(curr.size()-1);
+        generate(nums,i+1,curr,ans);
     }
-    public int perfectSum(int[] nums, int target) {
-        // code here
-        return count(0,nums,target);
+    public List<List<Integer>> subsets(int[] nums) {
+        List<List<Integer>> ans=new ArrayList<>();
+        generate(nums,0,new ArrayList<>(),ans);
+        return ans;
     }
 }
