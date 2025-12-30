@@ -1,0 +1,19 @@
+class Solution {
+    public void generate(String s,int i,StringBuilder curr,List<String> a){
+        if(i==s.length()){
+            if(curr.length()>0) a.add(curr.toString());
+            return;
+        }
+        curr.append(s.charAt(i));
+        generate(s,i+1,curr,a);
+        curr.deleteCharAt(curr.length()-1);
+        generate(s,i+1,curr,a);
+    }
+    public List<String> AllPossibleStrings(String s) {
+        // Code here
+        List<String> a=new ArrayList<>();
+        generate(s,0,new StringBuilder(),a);
+        Collections.sort(a);
+        return a;
+    }
+}
