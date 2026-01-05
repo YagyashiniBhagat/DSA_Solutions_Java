@@ -1,0 +1,17 @@
+class Solution {
+    public long maxMatrixSum(int[][] matrix) {
+        int n=matrix.length;
+        int noofneg=0,smallest=Integer.MAX_VALUE;
+        long s=0;
+        for(int i=0;i<n;i++){
+            for(int j=0;j<n;j++){
+                noofneg+=(matrix[i][j]<0) ? 1 : 0;
+                int val=Math.abs(matrix[i][j]);
+                s+=val;
+                smallest=Math.min(smallest,val);
+            }
+        }
+        if(noofneg%2==0) return s;
+        return s - 2*smallest;
+    }
+}
