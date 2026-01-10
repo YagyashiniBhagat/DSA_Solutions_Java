@@ -38,3 +38,42 @@ class Solution {
         return ans;
     }
 }
+
+
+// optimised code using hashing
+class Solution {
+    public void solve(List<List<String>> ans,char[][] board,int col,int n,int[] leftcheck,int[] upperdaigonalcheck,int[] lowerdaigonalcheck){
+        if(col==n){
+            List<String> temp=new ArrayList<>();
+            for(int i=0;i<n;i++){
+                temp.add(new String(board[i]));
+            }
+            ans.add(temp);
+            return;
+        }
+        for(int row=0;row<n;row++){
+            if(leftcheck[row]==0 && upperdaigonalcheck[n-1 + col-row]==0 && lowerdaigonalcheck[row+col]==0){
+                board[row][col]='Q';
+                leftcheck[row]=1;
+                upperdaigonalcheck[n-1 + col-row]=1;
+                lowerdaigonalcheck[row+col]=1;
+                solve(ans,board,col+1,n,leftcheck,upperdaigonalcheck,lowerdaigonalcheck);
+                board[row][col]='.';
+                leftcheck[row]=0;
+                upperdaigonalcheck[n-1 + col-row]=0;
+                lowerdaigonalcheck[row+col]=0;
+            }
+        }
+    }
+    public List<List<String>> solveNQueens(int n) {
+        List<List<String>> ans=new ArrayList<>();
+        int[] leftcheck=new int[n],upperdaigonalcheck=new int[2*n-1],lowerdaigonalcheck=new int[2*n-1];
+
+        char[][] board=new char[n][n];
+        for(int i=0;i<n;i++){
+            Arrays.fill(board[i],'.');
+        }
+        solve(ans,board,0,n,leftcheck,upperdaigonalcheck,lowerdaigonalcheck);
+        return ans;
+    }
+}
