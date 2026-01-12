@@ -1,0 +1,28 @@
+class Solution {
+    boolean isok(int[]color,int node,int[][] edges,int col){
+        for(int i=0;i<edges.length;i++){
+            int u=edges[i][0];
+            int v=edges[i][1];
+            if(u==node && color[v]==col) return false;
+            if(v==node && color[u]==col) return false;
+        }
+        return true;
+    }
+    boolean check(int node,int n,int[][] edges,int[] color,int m){
+        if(node==n) return true;
+        for(int i=1;i<=m;i++){
+            if(isok(color,node,edges,i)){
+                color[node]=i;
+                if(check(node+1,n,edges,color,m)==true) return true;
+                color[node]=0;
+            }
+        }
+        return false;
+    }
+    boolean graphColoring(int v, int[][] edges, int m) {
+        // code here
+        int[] color=new int[v];
+        if(check(0,v,edges,color,m)==true) return true;
+        return false;
+    }
+}
