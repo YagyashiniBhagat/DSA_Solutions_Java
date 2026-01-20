@@ -1,0 +1,33 @@
+class Solution {
+    public String removeKdig(String s, int k) {
+        // code here
+        Deque<Character> stack = new ArrayDeque<>();
+
+        for (char c : s.toCharArray()) {
+            // remove larger digits from the end if possible
+            while (!stack.isEmpty() && k > 0 && stack.peekLast() > c) {
+                stack.pollLast();
+                k--;
+            }
+            stack.addLast(c);
+        }
+
+        // if removals still left, remove from the end
+        while (k > 0 && !stack.isEmpty()) {
+            stack.pollLast();
+            k--;
+        }
+
+        // build result, skipping leading zeros
+        StringBuilder sb = new StringBuilder();
+        boolean leadingZero = true;
+        for (char c : stack) {
+            if (leadingZero && c == '0') continue;
+            leadingZero = false;
+            sb.append(c);
+        }
+
+        // if empty, return "0"
+        return sb.length() == 0 ? "0" : sb.toString();
+    }
+}
