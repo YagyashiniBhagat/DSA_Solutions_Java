@@ -1,0 +1,27 @@
+class Solution {
+    public ArrayList<Integer> calculateSpan(int[] arr) {
+        // code here
+        // brute force
+        // ArrayList<Integer> ans=new ArrayList<>();
+        // for(int i=0;i<arr.length;i++){
+        //     int c=0;
+        //     for(int j=i;j>=0;j--){
+        //         if(arr[i]>=arr[j]) c++;
+        //         else break;
+        //     }
+        //     ans.add(c);
+        // }
+        // return ans;
+
+        // optimal 
+        Stack<Integer> st=new Stack<>();
+        ArrayList<Integer> ans=new ArrayList<>();
+        for(int i=0;i<arr.length;i++){
+            while(!st.isEmpty() && arr[st.peek()]<=arr[i]) st.pop();
+            int span=(st.isEmpty()) ? i+1 : i-st.peek();
+            ans.add(span);
+            st.push(i);
+        }
+        return ans;
+    }
+}
