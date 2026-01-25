@@ -1,0 +1,15 @@
+class Solution {
+    int count(int open,int close,int pairs){
+        if(close>open) return 0;
+        if(open==pairs && close==pairs) return 1;
+        int c=0;
+        if(open<pairs) c+=count(open+1,close,pairs);
+        if(close<open) c+=count(open,close+1,pairs);
+        return c;
+    }
+    int findWays(int n) {
+        // code here
+        if(n%2 != 0) return 0;
+        return count(0,0,n/2);
+    }
+}
