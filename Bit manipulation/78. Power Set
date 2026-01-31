@@ -1,0 +1,15 @@
+public List<List<Integer>> subsets(int[] nums) {
+        List<List<Integer>> ans=new ArrayList<>();
+        int n=nums.length;
+        int subsets=1<<n;
+        for(int num=0;num<=subsets-1;num++){
+            List<Integer> lt=new ArrayList<>();
+            for(int i=0;i<n;i++){
+                if((num & (1<<i))!=0){
+                    lt.add(nums[i]);
+                }
+            }
+            ans.add(lt);
+        }
+        return ans;
+    }
