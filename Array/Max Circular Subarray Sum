@@ -1,0 +1,22 @@
+class Solution {
+    public int maxCircularSum(int arr[]) {
+        // code here
+        int tots=0;
+        int n=arr.length;
+        int maxending=arr[0];
+        int maxssofar=arr[0];
+        int minssofar=arr[0];
+        int minending=arr[0];
+        for(int i=0;i<n;i++){
+            tots+=arr[i];
+            if(i>0){
+                maxending=Math.max(arr[i],maxending+arr[i]);
+                maxssofar=Math.max(maxssofar,maxending);
+                minending=Math.min(arr[i],minending+arr[i]);
+                minssofar=Math.min(minssofar,minending);
+            }
+        }
+        if(maxssofar<0) return maxssofar;
+        return Math.max(maxssofar,tots-minssofar);
+    }
+}
