@@ -1,0 +1,14 @@
+class Solution {
+    int maxProduct(int[] arr) {
+        // code here
+        int maxproduct=arr[0],currmax=arr[0],currmin=arr[0];
+        for(int i=1;i<arr.length;i++){
+            int newmax=Math.max(arr[i],Math.max(currmax*arr[i],currmin*arr[i]));
+            int newmin=Math.min(arr[i],Math.min(currmax*arr[i],currmin*arr[i]));
+            maxproduct=Math.max(maxproduct,newmax);
+            currmax=newmax;
+            currmin=newmin;
+        }
+        return maxproduct;
+    }
+}
