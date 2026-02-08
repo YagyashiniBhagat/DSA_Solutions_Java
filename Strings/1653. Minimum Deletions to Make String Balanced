@@ -1,0 +1,60 @@
+class Solution {
+    public int minimumDeletions(String s) {
+        //Approach-1
+        // Stack<Character> st=new Stack<>();
+        // int c=0;
+        // for(char ch:s.toCharArray()){
+        //     if(!st.isEmpty() && st.peek()=='b' && ch=='a'){
+        //         st.pop();
+        //         c++;
+        //     }
+        //     else st.push(ch);
+        // }
+        // return c;
+
+        //Approach-2
+        // int c=Integer.MAX_VALUE,cb=0,ca=0;
+        // int n=s.length();
+        // int[] lb=new int[n];
+        // int[] la=new int[n];
+        // for(int i=0;i<n;i++){
+        //     lb[i]=cb;
+        //     if(s.charAt(i)=='b') cb++;
+        // }
+        // for(int i=n-1;i>=0;i--){
+        //     la[i]=ca;
+        //     if(s.charAt(i)=='a') ca++;
+        // }
+        // for(int i=0;i<n;i++){
+        //     c=Math.min(c,lb[i]+la[i]);
+        // }
+        // return c;
+
+        //Approach-3
+        // int c=Integer.MAX_VALUE,cb=0,ca=0;
+        // int n=s.length();
+        // int[] la=new int[n];
+        // for(int i=n-1;i>=0;i--){
+        //     la[i]=ca;
+        //     if(s.charAt(i)=='a') ca++;
+        // }
+        // for(int i=0;i<n;i++){
+        //     c=Math.min(c,cb+la[i]);
+        //     if(s.charAt(i)=='b') cb++;
+        // }
+        // return c;
+
+        //Approach-4
+        int n=s.length();
+        int ca=0,cb=0,c=Integer.MAX_VALUE;
+        for(int i=0;i<n;i++){
+            if(s.charAt(i)=='a') ca++;
+        }
+        for(int i=0;i<n;i++){
+            if(s.charAt(i)=='a') ca--;
+            c=Math.min(c,ca+cb);
+            if(s.charAt(i)=='b') cb++;
+        }
+        return c;
+    }
+}
