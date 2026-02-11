@@ -1,0 +1,48 @@
+class Solution {
+    public long calculatecost(int[] heights, int[] cost,int target){
+        long s=0;
+        for(int i=0;i<heights.length;i++){
+            int c=Math.abs(heights[i]-target);
+            s+=((long)c*cost[i]);
+        }
+        return s;
+    }
+    // public int min(int[] heights){
+    //     int mini=Integer.MAX_VALUE;
+    //     for(int i=0;i<heights.length;i++) mini=Math.min(mini,heights[i]);
+    //     return mini;
+    // }
+    // public int max(int[] heights){
+    //     int maxi=Integer.MIN_VALUE;
+    //     for(int i=0;i<heights.length;i++) maxi=Math.max(maxi,heights[i]);
+    //     return maxi;
+    // }
+    public int minCost(int[] heights, int[] cost) {
+        //code here
+        // int n = heights.length;
+        // int l=min(heights),h=max(heights);
+        // while(h-l>2){//If high - low < 2, we have fewer than 3 elements left At that point, we can't meaningfully divide into 3 parts
+        //     int mid1=l+(h-l) / 3;
+        //     int mid2=h-(h-l) / 3;
+        //     long cost1=calculatecost(heights,cost,mid1);
+        //     long cost2=calculatecost(heights,cost,mid2);
+        //     if(cost1>cost2) l=mid1;
+        //     else if(cost1<cost2) h=mid2;
+        // }
+        // long mincost=Long.MAX_VALUE;
+        // for(int i=l;i<=h;i++){
+        //     mincost=Math.min(mincost,calculatecost(heights,cost,i));
+        // }
+        // return (int)mincost;
+        long mincost = Long.MAX_VALUE;
+        Set<Integer> uniqueHeights = new HashSet<>();
+        for (int h : heights) {
+            uniqueHeights.add(h);
+        }
+        for (int target : uniqueHeights) {
+            mincost = Math.min(mincost, calculatecost(heights, cost, target));
+        }
+        
+        return (int)mincost;
+    }
+}
