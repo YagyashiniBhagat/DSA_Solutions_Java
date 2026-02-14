@@ -1,0 +1,41 @@
+class Solution {
+    int max(int[] arr){
+        int maxi = Integer.MIN_VALUE;
+        for(int i = 0; i < arr.length; i++) {
+            maxi = Math.max(maxi, arr[i]);
+        }
+        return maxi;
+    }
+
+    int sum(int[] arr){
+        int s = 0;
+        for(int i = 0; i < arr.length; i++) {
+            s += arr[i];
+        }
+        return s;
+    }
+
+    int countPainters(int[] arr, int limit){
+        int painters = 1, curr = 0;
+        for(int i = 0; i < arr.length; i++){
+            if(curr + arr[i] > limit){
+                painters++;
+                curr = arr[i];
+            }
+            else curr += arr[i];
+        }
+        return painters;
+    }
+
+    public int minTime(int[] arr, int k) {
+        int low = max(arr), high = sum(arr);
+        while(low <= high){
+            int mid = low + (high - low) / 2;
+            int painters = countPainters(arr, mid);
+            if(painters > k)
+                low = mid + 1; 
+            else high = mid - 1;
+        }
+        return low;
+    }
+}
