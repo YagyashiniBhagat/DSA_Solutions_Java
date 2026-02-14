@@ -1,0 +1,30 @@
+class Solution {
+    public boolean satisfies(int m,int d){
+        int x=m,digits=0;
+        while(x!=0){
+            digits+=(x%10);
+            x/=10;
+        }
+        if(m-digits >= d) return true;
+        return false;
+    }
+    public int findstart(int n,int d){
+        int l=1,h=n;
+        int ans=n+1;
+        while(l<=h){
+            int m=l+(h-l)/2;
+            if(satisfies(m,d)){
+                ans=m;
+                h=m-1;
+            }
+            else l=m+1;
+        }
+        return ans;
+    }
+    public int getCount(int n, int d) {
+        // code here
+        int start=findstart(n,d);
+        if(start>n) return 0;
+        return n-start+1;
+    }
+}
