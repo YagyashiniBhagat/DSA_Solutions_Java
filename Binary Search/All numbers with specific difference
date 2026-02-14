@@ -1,7 +1,7 @@
 class Solution {
     public boolean satisfies(int m,int d){
         int x=m,digits=0;
-        while(x!=0){
+        while(x!=0){ 
             digits+=(x%10);
             x/=10;
         }
