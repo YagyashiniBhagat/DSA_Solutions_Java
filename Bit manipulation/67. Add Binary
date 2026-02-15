@@ -1,0 +1,22 @@
+class Solution {
+    public String addBinary(String a, String b) {
+        int i=a.length()-1,j=b.length()-1;
+        int carry=0,s=0;
+        StringBuilder ans=new StringBuilder();
+        while(i>=0 || j>=0){
+            s=carry;
+            if(i>=0){
+                s+=(a.charAt(i)-'0');
+                i--;
+            }
+            if(j>=0){
+                s+=(b.charAt(j)-'0');
+                j--;
+            }
+            carry=(s>1) ? 1 : 0;
+            ans.append((s%2==0) ? '0' : '1');
+        }
+        if(carry==1) ans.append('1');
+        return ans.reverse().toString();
+    }
+}
