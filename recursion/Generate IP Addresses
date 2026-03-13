@@ -1,0 +1,28 @@
+class Solution {
+    boolean isvalid(String str){
+        if(str.length()>1 && str.charAt(0)=='0') return false;
+        int val=Integer.parseInt(str);
+        return val<=255;
+    }
+    void generate(String s,int idx,String curr,int cnt,ArrayList<String> res){
+        if(idx>=s.length()) return;
+        if(cnt==3){
+            String last=s.substring(idx);
+            if(last.length()<=3 && isvalid(last))
+                res.add(curr+last);
+            return;
+        }
+        String segment="";
+        for(int i=idx;i<Math.min(idx+3,s.length());i++){
+            segment+=s.charAt(i);
+            if(isvalid(segment))
+                generate(s,i+1,curr+segment+".",cnt+1,res);
+        }
+    }
+    public ArrayList<String> generateIp(String s) {
+        // code here
+        ArrayList<String> res=new ArrayList<>();
+        generate(s,0,"",0,res);
+        return res;
+    }
+}
