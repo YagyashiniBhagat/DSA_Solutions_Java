@@ -1,0 +1,75 @@
+class Solution {
+    int[] nse(int[] nums){
+        int n=nums.length;
+        Stack<Integer> st=new Stack<>();
+        int[] ans=new int[n];
+        for(int i=n-1;i>=0;i--){
+            while(!st.isEmpty() && nums[st.peek()] > nums[i]) st.pop();
+            ans[i]=(st.isEmpty()) ? n : st.peek();
+            st.push(i);
+        }
+        return ans;
+    }
+    int[] nge(int[] nums){
+        int n=nums.length;
+        Stack<Integer> st=new Stack<>();
+        int[] ans=new int[n];
+        for(int i=n-1;i>=0;i--){
+            while(!st.isEmpty() && nums[st.peek()] < nums[i]) st.pop();
+            ans[i]=(st.isEmpty()) ? n : st.peek();
+            st.push(i);
+        }
+        return ans;
+    }
+    int[] pgee(int[] nums){
+        int n=nums.length;
+        Stack<Integer> st=new Stack<>();
+        int[] ans=new int[n];
+        for(int i=0;i<n;i++){
+            while(!st.isEmpty() && nums[st.peek()] <= nums[i]) st.pop();
+            ans[i]=(st.isEmpty()) ? -1 : st.peek();
+            st.push(i);
+        }
+        return ans;
+    }
+    int[] psee(int[] nums){
+        int n=nums.length;
+        Stack<Integer> st=new Stack<>();
+        int[] ans=new int[n];
+        for(int i=0;i<n;i++){
+            while(!st.isEmpty() && nums[st.peek()] >= nums[i]) st.pop();
+            ans[i]=(st.isEmpty()) ? -1 : st.peek();
+            st.push(i);
+        }
+        return ans;
+    }
+    long sumOfSubarraysMaximums(int[] nums){
+        int n=nums.length;
+        int[] nge=nge(nums);
+        int[] pgee=pgee(nums);
+        long tot=0;
+        int mod=(int)1e9+7;
+        for(int i=0;i<n;i++){
+            long left=i-pgee[i];
+            long right=nge[i]-i;
+            tot += left * right * nums[i];
+        }
+        return tot;
+    }
+    long sumOfSubarraysMinimums(int[] nums){
+        int n=nums.length;
+        int[] nse=nse(nums);
+        int[] psee=psee(nums);
+        long tot=0;
+        int mod=(int)1e9+7;
+        for(int i=0;i<n;i++){
+            long left=i-psee[i];
+            long right=nse[i]-i;
+            tot += left * right * nums[i];
+        }
+        return tot;
+    }
+    public long subArrayRanges(int[] nums) {
+        return sumOfSubarraysMaximums(nums)-sumOfSubarraysMinimums(nums);
+    }
+}
