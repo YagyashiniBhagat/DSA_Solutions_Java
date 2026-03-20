@@ -1,0 +1,25 @@
+class Solution {
+    public int[][] minAbsDiff(int[][] grid, int k) {
+        int m=grid.length,n=grid[0].length;
+        int[][] res=new int[m-k+1][n-k+1];
+        for(int i=0;i<=m-k;i++){
+            for(int j=0;j<=n-k;j++){
+                TreeSet<Integer> vals=new TreeSet<>();//TreeSet for sorted and distinct elements
+                for(int a=i;a<=i+k-1;a++){
+                    for(int b=j;b<=j+k-1;b++){
+                        vals.add(grid[a][b]);
+                    }
+                }
+                if(vals.size()==1) continue;
+                int minabsdiff=Integer.MAX_VALUE;
+                Integer prev=null;
+                for(int val:vals){
+                    if(prev!=null) minabsdiff=Math.min(minabsdiff,val-prev);
+                    prev=val;
+                }
+                res[i][j]=minabsdiff;
+            }
+        }
+        return res;
+    }
+}
