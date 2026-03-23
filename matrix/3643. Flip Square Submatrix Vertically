@@ -1,0 +1,16 @@
+class Solution {
+    public int[][] reverseSubmatrix(int[][] grid, int x, int y, int k) {
+        int startrow=x,endrow=x+k-1;
+        int startcol=y,endcol=y+k-1;
+        while(startrow<endrow){
+            for(int j=startcol;j<=endcol;j++){
+                int t=grid[startrow][j];
+                grid[startrow][j]=grid[endrow][j];
+                grid[endrow][j]=t;
+            }
+            startrow++;
+            endrow--;
+        }
+        return grid;
+    }
+}
