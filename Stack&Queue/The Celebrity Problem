@@ -1,0 +1,40 @@
+class Solution {
+    public int celebrity(int mat[][]) {
+        // code here
+        
+        // int m=mat.length,n=mat[0].length;
+        // int[] knowsme=new int[n];
+        // int[] iknow=new int[n];
+        // Arrays.fill(knowsme,0);
+        // Arrays.fill(iknow,0);
+        // for(int i=0;i<m;i++){
+        //     for(int j=0;j<n;j++){
+        //         if(i!=j && mat[i][j]==1){
+        //             knowsme[j]++;
+        //             iknow[i]++;
+        //         }
+        //     }
+        // }
+        // for(int i=0;i<n;i++){
+        //     if(knowsme[i]==n-1 && iknow[i]==0) return i;
+        // }
+        // return -1;
+        
+        int m=mat.length,n=mat[0].length;
+        int top=0,down=n-1;
+        while(top<down){
+            if(mat[top][down]==1) top++;//if top knows down it can't be a celebrity
+            else if(mat[down][top]==1) down--;//if down knows top it can't be a celebrity
+            else{//if both dont know each other, becoz someone has to know either of them then only either of them can be a celebrity
+                top++;
+                down--;
+            }
+        }
+        if(top<down) return -1;
+        for(int i=0;i<n;i++){
+            if(i==top) continue;
+            if(mat[top][i]==1 || mat[i][top]==0) return -1;
+        }
+        return top;
+    }
+}
