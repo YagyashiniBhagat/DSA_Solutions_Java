@@ -1,0 +1,33 @@
+class Solution {
+    public boolean canPartitionGrid(int[][] grid) {
+        int m=grid.length,n=grid[0].length;
+        long[] rows=new long[m];
+        // Arrays.fill(rows,0);
+        long[] cols=new long[n];
+        // Arrays.fill(cols,0);
+        long tots=0;
+        for(int i=0;i<m;i++){
+            for(int j=0;j<n;j++){
+                tots+=grid[i][j];
+                rows[i]+=grid[i][j];
+                cols[j]+=grid[i][j];
+            }
+        }
+
+        if(tots%2 != 0) return false;
+
+        long upper=0,lower=0;
+        for(int i=0;i<m-1;i++){
+            upper+=rows[i];
+            lower=tots-upper;
+            if(upper==lower) return true;
+        }
+        long right=0,left=0;
+        for(int j=0;j<n-1;j++){
+            right+=cols[j];
+            left=tots-right;
+            if(right==left) return true;
+        }
+        return false;
+    }
+}
