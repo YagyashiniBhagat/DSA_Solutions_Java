@@ -1,0 +1,19 @@
+class Solution {
+    public int countSubarrays(int[] nums,int goal){
+        if(goal<0) return 0;
+        int s=0,c=0,l=0,r=0;
+        while(r<nums.length){
+            s+=nums[r];
+            while(s>goal){
+                s-=nums[l];
+                l++;
+            }
+            c+=(r-l+1);
+            r++;
+        }
+        return c;
+    }
+    public int numSubarraysWithSum(int[] nums, int goal) {
+        return countSubarrays(nums,goal)-countSubarrays(nums,goal-1);
+    }
+}
