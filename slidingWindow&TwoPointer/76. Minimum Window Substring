@@ -1,0 +1,24 @@
+class Solution {
+    public String minWindow(String s, String t) {
+        int n=s.length(),m=t.length();
+        int minlen=Integer.MAX_VALUE, sind=-1, c=0, l=0, r=0;
+        int[] chars=new int[256];
+        for(char ch:t.toCharArray()) chars[ch]++;
+        while(r<n){
+            char ch=s.charAt(r);
+            if(chars[ch]>0) c=c+1;
+            chars[ch]--;
+            while(c==m){
+                if(r-l+1 < minlen){
+                    minlen = r-l+1;
+                    sind = l;
+                }
+                chars[s.charAt(l)]++;
+                if(chars[s.charAt(l)]>0) c=c-1;
+                l++;
+            }
+            r++;
+        }
+        return (sind==-1) ? "" : s.substring(sind,sind+minlen);
+    }
+}
