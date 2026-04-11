@@ -1,0 +1,18 @@
+class Solution {
+    public int minimumDistance(int[] nums) {
+        int n = nums.length;
+        if(n<3) return -1;
+        int res=Integer.MAX_VALUE;
+        Map<Integer,List<Integer>> map=new HashMap<>();
+        for(int k=0;k<n;k++){
+            map.putIfAbsent(nums[k],new ArrayList<>());
+            map.get(nums[k]).add(k);
+            if(map.get(nums[k]).size()>=3){
+                List<Integer> lt=map.get(nums[k]);
+                int i=lt.get(lt.size()-3);
+                res=Math.min(res,2*(k-i));
+            }
+        }
+        return res==Integer.MAX_VALUE ? -1 : res;
+    }
+}
