@@ -1,0 +1,40 @@
+class Solution {
+    public int[] getcoord(int pos){
+        int p=pos-'A';
+        return new int[]{p/6,p%6};
+    }
+    public int getdist(int pos1, int pos2){
+        if(pos1==26 && pos2==26) return 0;
+        int[] c1=getcoord(pos1);
+        int[] c2=getcoord(pos2);
+        return Math.abs(c1[0]-c2[0])+Math.abs(c1[1]-c2[1]);
+    }
+    public int minimumDistance(String word) {
+        int n=word.length();
+        int[][][] dp=new int[n+1][27][27];
+        for(int i=n-1;i>=0;i--){
+            int curr=word.charAt(i)-'A';
+            for(int f1=0;f1<27;f1++){
+                for(int f2=0;f2<27;f2++){
+                    if(f1==26 && f2==26){//none of them are used
+                        dp[i][f1][f2]=dp[i+1][curr][f2];// solve(i+1,curr,f2)
+                        continue;
+                    }
+                    //f2 is not used
+                    if(f2==26){
+                        int movef2=dp[i+1][f1][curr];
+                        int movef1=getdist(f1,curr)+dp[i+1][curr][f2];
+
+                        dp[i][f1][f2]=Math.min(movef1,movef2);
+                        continue;
+                    }
+                    //f1 f2 both used
+                    int movef1=getdist(f1,curr)+dp[i+1][curr][f2];
+                    int movef2=getdist(f2,curr)+dp[i+1][f1][curr];
+                    dp[i][f1][f2]=Math.min(movef1,movef2);
+                }
+            }
+        }
+        return dp[0][26][26];
+    }
+}
