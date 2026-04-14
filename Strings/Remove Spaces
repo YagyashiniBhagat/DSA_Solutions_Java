@@ -1,0 +1,12 @@
+class Solution {
+    String removeSpaces(String s) {
+        // code here
+        StringBuilder res=new StringBuilder();
+        for(char ch:s.toCharArray()){
+            if(ch!=' '){
+                res.append(ch);
+            }
+        }
+        return res.toString();
+    }
+}
