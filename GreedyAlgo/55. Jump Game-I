@@ -1,0 +1,10 @@
+class Solution {
+    public boolean canJump(int[] nums) {
+        int maxjump=0,i=0;
+        while(i<=maxjump && i < nums.length){
+            maxjump=Math.max(maxjump,(i+nums[i]));
+            i++;
+        }
+        return (maxjump>=nums.length-1);
+    }
+}
