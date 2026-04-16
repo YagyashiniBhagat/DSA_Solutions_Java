@@ -1,0 +1,36 @@
+class Solution {
+    // public boolean isvalid(String s,int ind,int open){
+    //     if(open<0) return false;
+    //     if(ind==s.length()) return open==0;
+    //     char ch=s.charAt(ind);
+    //     if(ch=='(') return isvalid(s,ind+1,open+1);
+    //     if(ch==')') return isvalid(s,ind+1,open-1);
+    //     else{
+    //         return (isvalid(s,ind+1,open) || isvalid(s,ind+1,open+1) || isvalid(s,ind+1,open-1));
+    //     }
+    // }
+    public boolean checkValidString(String s) {
+        // return isvalid(s,0,0);
+        //brute force recursion tc:O(3^n)
+
+
+        //optimal
+        int min=0,max=0;
+        for(char ch:s.toCharArray()){
+            if(ch=='('){
+                min++; max++;
+            }
+            else if(ch==')'){
+                min--;
+                max--;
+            }else{
+                min--;
+                max++;
+            }
+            if(min<0) min=0;
+            if(max<0) return false;
+        }
+        return (min==0);
+
+    }
+}
