@@ -1,0 +1,25 @@
+class Solution {
+    public long[] distance(int[] nums) {
+        int n=nums.length;
+        long[] res=new long[n];
+        Map<Integer,Long> indsum=new HashMap<>();
+        Map<Integer,Long> indfreq=new HashMap<>();
+        for(int i=0;i<n;i++){
+            long freq=indfreq.getOrDefault(nums[i],0l);
+            long sum=indsum.getOrDefault(nums[i],0l);
+            res[i]+=i*freq-sum;
+            indfreq.put(nums[i],freq+1);
+            indsum.put(nums[i],sum+i);
+        }
+        indsum.clear();
+        indfreq.clear();
+        for(int i=n-1;i>=0;i--){
+            long freq=indfreq.getOrDefault(nums[i],0l);
+            long sum=indsum.getOrDefault(nums[i],0l);
+            res[i]+=sum-i*freq;
+            indfreq.put(nums[i],freq+1);
+            indsum.put(nums[i],sum+i);
+        }
+        return res;
+    }
+}
