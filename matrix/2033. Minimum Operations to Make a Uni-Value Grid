@@ -1,0 +1,21 @@
+class Solution {
+    public int minOperations(int[][] grid, int x) {
+        int m=grid.length,n=grid[0].length;
+        List<Integer> arr=new ArrayList<>();
+        for(int i=0;i<m;i++){
+            for(int j=0;j<n;j++){
+                arr.add(grid[i][j]);
+            }
+        }
+        Collections.sort(arr);
+        int s=arr.size();
+        int target=arr.get(s/2);
+        int c=0;
+        for(int num:arr){
+            if(num%x != target%x) //From any number num, you can only reach: num, num±x, num±2x,..All of these, when divided by x, leave the same remainder as num.Example: num = 5, x = 3 → you can reach 2, 5, 8, 11, 14... — all give remainder 2 when divided by 3.So if target % x != num % x, target is simply not in that reachable set.
+                return -1;
+            c+=Math.abs(target-num)/x;
+        }
+        return c;
+    }
+}
