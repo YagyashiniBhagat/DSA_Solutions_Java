@@ -1,0 +1,14 @@
+class Solution {
+    public void leftview(Node root,int level,List<Integer> res){
+        if(root==null) return;
+        if(level==res.size()) res.add(root.data);
+        leftview(root.left,level+1,res);
+        leftview(root.right,level+1,res);
+    }
+    public ArrayList<Integer> leftView(Node root) {
+        // code here
+        ArrayList<Integer> res=new ArrayList<>();
+        leftview(root,0,res);
+        return res;
+    }
+}
