@@ -1,0 +1,29 @@
+class Pair{
+    Node node;
+    int ind;
+    public Pair(Node node,int ind){
+        this.node=node;
+        this.ind=ind;
+    }
+}
+
+class Solution {
+    public ArrayList<Integer> bottomView(Node root) {
+        // code here
+        ArrayList<Integer> res=new ArrayList<>();
+        if(root==null) return res;
+        Map<Integer,Integer> map=new TreeMap<>();//TreeMap auto sorts by key
+        Queue<Pair> q=new LinkedList<>();
+        q.add(new Pair(root,0));
+        while(!q.isEmpty()){
+            Pair p=q.poll();
+            Node temp=p.node;
+            int vi=p.ind;//vertical index
+            map.put(vi,temp.data);
+            if(temp.left != null) q.add(new Pair(temp.left,vi-1));
+            if(temp.right != null) q.add(new Pair(temp.right,vi+1));
+        }
+        for(int val:map.values()) res.add(val);
+        return res;
+    }
+}
