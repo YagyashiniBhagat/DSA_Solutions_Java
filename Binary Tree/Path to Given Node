@@ -1,0 +1,19 @@
+public class Solution {
+    public boolean haspath(TreeNode A, int B,ArrayList<Integer> arr){
+        if(A==null) return false;
+        arr.add(A.val);
+        if(A.val==B) return true;
+        if(haspath(A.left,B,arr) || haspath(A.right,B,arr)) return true;
+        arr.remove(arr.size()-1);
+        return false;
+    }
+    public int[] solve(TreeNode A, int B) {
+        ArrayList<Integer> arr=new ArrayList<>();
+        if(haspath(A,B,arr)){
+            int[] res=new int[arr.size()];
+            for(int i=0;i<arr.size();i++) res[i]=arr.get(i);
+            return res;
+        }
+        return new int[]{};
+    }
+}
