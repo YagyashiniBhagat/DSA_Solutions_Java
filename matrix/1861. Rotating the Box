@@ -1,0 +1,40 @@
+class Solution {
+    public void reverse(char[] x){
+        int l=0,r=x.length-1;
+        while(l<r){
+            char t=x[l];
+            x[l]=x[r];
+            x[r]=t;
+            l++;
+            r--;
+        }
+    }
+    public char[][] rotateTheBox(char[][] boxGrid) {
+        int m=boxGrid.length;
+        int n=boxGrid[0].length;
+        char[][] res=new char[n][m];//after rotating
+        for(int i=0;i<n;i++){
+            for(int j=0;j<m;j++){
+                res[i][j]=boxGrid[j][i];
+            }
+        }
+        for(char[] x:res){
+            reverse(x);
+        }
+        for(int j=0;j<m;j++){
+            int spacebottomrow=n-1;
+            for(int i=n-1;i>=0;i--){
+                if(res[i][j]=='*'){
+                    spacebottomrow=i-1;
+                    continue;
+                }
+                if(res[i][j]=='#'){
+                    res[i][j]='.';
+                    res[spacebottomrow][j]='#';
+                    spacebottomrow--;
+                }
+            }
+        }
+        return res;
+    }
+}
