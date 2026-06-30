@@ -1,0 +1,55 @@
+class Solution {
+    boolean isvowel(char ch){
+        if(ch=='a' || ch=='e' ||ch=='i' ||ch=='o' ||ch=='u') return true;
+        return false;
+    }
+    public long countOfSubstrings(String word, int k) {
+        int i=0,j=0;
+        int n=word.length();
+        HashMap<Character,Integer> v=new HashMap<>();
+        long count=0;
+        int consonantcnt=0;
+
+        int[] nxtconsonant=new int[n];
+        int lastconsonantidx=n;
+        for(int z=n-1;z>0;z--){
+            nxtconsonant[z]=lastconsonantidx;
+            if(!isvowel(word.charAt(z))) lastconsonantidx=z;
+        }
+
+        while(j<n){
+            char ch=word.charAt(j);
+            if(isvowel(ch)){
+                v.put(ch,v.getOrDefault(ch,0)+1);
+            }
+            else consonantcnt++;
+
+            while(consonantcnt>k){
+                char ci=word.charAt(i);
+                if(isvowel(ci)){
+                    v.put(ci,v.get(ci)-1);
+                    if(v.get(ci)==0) v.remove(ci);
+                }else{
+                    consonantcnt--;
+                }
+                i++;
+            }
+
+            //valid window
+            while(i<n && v.size()==5 && consonantcnt==k){
+                int nxtconsonantidx=nxtconsonant[j];
+                count+=(nxtconsonantidx-j);
+                char ci=word.charAt(i);
+                if(isvowel(ci)){
+                    v.put(ci,v.get(ci) - 1);
+                    if(v.get(ci)==0) v.remove(ci);
+                }else{
+                    consonantcnt--;
+                }
+                i++;
+            }
+            j++;
+        }
+        return count;
+    }
+}
