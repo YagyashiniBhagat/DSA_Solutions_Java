@@ -1,0 +1,15 @@
+class Solution {
+    public static int countPairs(int arr[], int k) {
+        // code here
+        if(k==0) return 0;
+        Arrays.sort(arr);
+        int l=0,r=1,c=0,n=arr.length;
+        while(l<n){
+            if(r==l) r=l+1;
+            while(r<n && arr[r]-arr[l] < k) r++;
+            c+=(r-l-1);
+            l++;
+        }
+        return c;
+    }
+}
