@@ -1,0 +1,21 @@
+class Solution {
+    public int countMinOperations(int arr[]) {
+        // code here
+        int decrement=0,divide=0;
+        for(int num:arr){
+            int divbytwo=0;
+            while(num!=0){
+                if(num%2==0){
+                    num/=2;
+                    divbytwo++;
+                }
+                else{
+                    num-=1;
+                    decrement++;
+                }
+            }
+            divide=Math.max(divide,divbytwo);
+        }
+        return decrement+divide;
+    }
+}
