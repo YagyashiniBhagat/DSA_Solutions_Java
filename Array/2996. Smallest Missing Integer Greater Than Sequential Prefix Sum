@@ -1,0 +1,21 @@
+class Solution {
+    public int missingInteger(int[] nums) {
+        Set<Integer> st=new HashSet<>();
+        for(int num:nums) st.add(num);
+        int n=nums.length;
+        int seqs=nums[0];
+        for(int i=1;i<n;i++){
+            if(nums[i]==nums[i-1]+1) seqs+=nums[i];
+            else break;
+        }
+        while(st.contains(seqs)){
+            seqs++;
+        }
+        return seqs;
+        // Arrays.sort(nums);
+        // for(int i=0;i<n;i++){
+        //     if(nums[i]==seqs) seqs++;
+        // }
+        // return seqs;
+    }
+}
