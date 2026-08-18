@@ -1,0 +1,48 @@
+class Solution {
+    public int largestInteger(int[] nums, int k) {
+        // Map<Integer,Integer> mp=new HashMap<>();
+        // int n=nums.length;
+        // for(int num:nums){
+        //     mp.put(num,mp.getOrDefault(num,0)+1);
+        // }
+        // if(k==n) {
+        //     int largest=nums[0];
+        //     for(int num:nums){
+        //         largest=Math.max(largest,num);
+        //     }
+        //     return largest;
+        // }
+        // if(k==1){
+        //     int ans=-1;
+        //     for(int key:mp.keySet()){
+        //         if(mp.get(key)==1) ans=Math.max(ans,key);
+        //     }
+        //     return ans;
+        // }
+        // int first=nums[0],last=nums[n-1];
+        // boolean firstok=mp.get(first)==1;
+        // boolean lastok=mp.get(last)==1;
+        // if(firstok && lastok) return Math.max(first,last);
+        // if(firstok) return first;
+        // if(lastok) return last;
+        // return -1;
+
+        Map<Integer,Integer> map=new HashMap<>();//element->no of times it has appeared in k sized window
+        Set<Integer> set=new HashSet<>();//this will contain elements in k sized window
+        int i=0,j=0,n=nums.length;
+        while(j<n){
+            if(j-i+1 == k){
+                for(int z=i;z<=j;z++) set.add(nums[z]);
+                for(int num:set) map.put(num,map.getOrDefault(num,0)+1);
+                set.remove(nums[i]);
+                i++;
+            }
+            j++;
+        }
+        int ans=-1;
+        for(Map.Entry<Integer,Integer> entry:map.entrySet()){
+            if(entry.getValue()==1 && entry.getKey() > ans) ans=entry.getKey();
+        }
+        return ans;
+    }
+}
