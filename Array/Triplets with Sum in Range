@@ -1,0 +1,24 @@
+class Solution {
+
+    public int countTriplets(int[] arr, int l, int r) {
+        // code here
+        Arrays.sort(arr);
+        return ctws(arr,r)-ctws(arr,l-1);
+        
+    }
+    public int ctws(int[] arr,int r){
+        int n=arr.length,j,k,ans=0;
+        for(int i=0;i<n;i++){
+            j=i+1;k=n-1;
+            while(j<k){
+                int s=arr[i]+arr[j]+arr[k];
+                if(s>r) k--;
+               else{
+                   ans+=(k-j);
+                   j++;
+               }
+            }
+        }
+        return ans;
+    }
+}
