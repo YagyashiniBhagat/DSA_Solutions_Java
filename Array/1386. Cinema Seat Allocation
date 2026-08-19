@@ -1,0 +1,20 @@
+class Solution {
+    public int maxNumberOfFamilies(int n, int[][] reservedSeats) {
+        Map<Integer,Set<Integer>> map=new HashMap<>();
+        for(int[] seatstaken:reservedSeats){
+            map.computeIfAbsent(seatstaken[0], k -> new HashSet<>()).add(seatstaken[1]);
+        }
+        int ans=(n-map.size())*2;//as every untouched row fits 2 group 
+
+        for(Map.Entry<Integer,Set<Integer>> entry:map.entrySet()){
+            Set<Integer> bookseats=entry.getValue();
+            boolean grpa= !bookseats.contains(2) && !bookseats.contains(3) && !bookseats.contains(4) && !bookseats.contains(5);
+            boolean grpb= !bookseats.contains(4) && !bookseats.contains(5) && !bookseats.contains(6) && !bookseats.contains(7);
+            boolean grpc= !bookseats.contains(8) && !bookseats.contains(9) && !bookseats.contains(6) && !bookseats.contains(7);
+
+            if(grpa && grpc) ans+=2;//as only grpa and grpc dont overlap each other
+            else if(grpa || grpb || grpc) ans+=1;
+        }
+        return ans;
+    }
+}
