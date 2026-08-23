@@ -1,0 +1,37 @@
+class Solution {
+    public boolean sumGame(String num) {
+        int n=num.length();
+        int leftqm=0,rightqm=0,lefts=0,rights=0;
+        for(int i=0;i<n;i++){
+            if(i<n/2){
+                if(num.charAt(i)=='?') leftqm++;
+                else lefts+=num.charAt(i)-'0';
+            }
+            else{
+                if(num.charAt(i)=='?') rightqm++;
+                else rights+=num.charAt(i)-'0';
+            }
+        }
+        if((leftqm+rightqm) %2==1) return true;//when the total no of question marks are odd, then alice wins everytime as she's the one who gets the last chance so she makes sure the sum stays unequal
+        
+        //if even question marks-> 
+        //one side even qmarks
+        //sum of other side should always be greater than this side sum where qmark is there otherwise no matter how much alice will try the sum cant be equal for ex: 1115?? lefts=3 rights(current)=5 the sum on any side can never decrease 
+        // basically the side having qmarks should have lower sum otherwise bob loses, alice wins
+
+        //Alice will always try to make the sum as greater as possible so bob will always try to limit the increase of what alice did the limit value can be 9 (always valid)
+        // 16452 5???? A=x B=9-x A=y B=9-y so rs=5+ x+9-x+y+9-y= 5 +18 for generic 18/4(no of qm) = 4.5 therefore, rigths= rightknownsum + 4.5*rightqm same for lhs
+        
+        // If total ?s is even, every ? gets paired: one on Alice's turn, one on Bob's.
+        // For any such pair, whoever fills the second slot of the pair can always
+        // force that pair's combined value to 9 (Alice pushes it up, Bob pulls it
+        // down to cancel her, or vice versa) — regardless of which side the digits
+        // land on. So each ? contributes an expected/forced value of 9/2 = 4.5
+        // toward its side's final sum
+        double ls=(double)lefts+(4.5*leftqm);
+        double rs=(double)rights+(4.5*rightqm);
+        if(ls==rs) return false;
+        return true;
+
+    }
+}
