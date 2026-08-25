@@ -1,0 +1,18 @@
+class Solution {
+    int cnt=0,res=0;
+    void reverseinorder(Node root, int k){
+        if(root==null) return;
+        reverseinorder(root.right,k);
+        cnt++;
+        if(cnt==k){
+            res=root.data;
+            return;
+        }
+        reverseinorder(root.left,k);
+    }
+    public int kthLargest(Node root, int k) {
+        // code here
+        reverseinorder(root,k);
+        return res;
+    }
+}
