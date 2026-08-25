@@ -1,0 +1,16 @@
+class Solution {
+    public int minMoves(int[] arr) {
+        // code here
+        int n=arr.length;
+        int[] pos=new int[n+1];
+        for(int i=0;i<n;i++) pos[arr[i]]=i;
+        int maxlen=1,currlen=1;
+        for(int j=2;j<=n;j++){
+            if(pos[j] > pos[j-1]) currlen++;
+            else currlen=1;
+            
+            maxlen=Math.max(maxlen,currlen);
+        }
+        return n - maxlen;//n-largest group thats already sorted correctly relative to each other
+    }
+}
