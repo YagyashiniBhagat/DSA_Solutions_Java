@@ -1,0 +1,16 @@
+class Solution {
+    TreeNode formbst(int[] preorder, int bound,int[] i ){
+        if(i[0]==preorder.length || preorder[i[0]]>bound) return null;
+        TreeNode root=new TreeNode(preorder[i[0]++]);//take the value at current ptr postn and make it the root of this subtree.
+        root.left=formbst(preorder,root.val,i);
+        //in the left subtree every value must be less than root.val so bound=root.val
+        root.right=formbst(preorder,bound,i);
+        //in the right subtree values just need to be less than whatever limit root itself was allowed thats why root doesnt put a new upper limit on its right side.
+
+        return root;
+    }
+    public TreeNode bstFromPreorder(int[] preorder) {
+        return formbst(preorder, Integer.MAX_VALUE,new int[]{0});
+    }
+    //we are using int[] i instead of normal index : as in java, normal int is passed by value(copy is made) so if left subtree call changes it the change wont be visible in the right subtree call or the parent. Using int[] i passes an array(object) reference all recursive calls share the same array updating i[0] in one call reflects everywhere.
+}
