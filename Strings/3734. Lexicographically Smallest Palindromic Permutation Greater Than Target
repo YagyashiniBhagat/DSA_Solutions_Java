@@ -1,0 +1,59 @@
+class Solution {
+
+    String res="";
+    char midchar='#';
+    int half=0;
+
+    boolean helper(StringBuilder lefthalf, int[] halfcnt,String target,int i,boolean greater){
+        if(i==half){
+            
+            String lh= lefthalf.toString();
+            String rh=new StringBuilder(lh).reverse().toString();
+            String candidate=lh;
+            if(midchar!='#') candidate+=midchar;
+            candidate+=rh;
+
+            if(candidate.compareTo(target)>0){
+                res=candidate;
+                return true;
+            }
+            return false;
+        }
+        for(char ch='a';ch<='z';ch++){
+            if(halfcnt[ch-'a']==0) continue;
+            if(!greater && ch<target.charAt(i)) continue;
+
+            lefthalf.append(ch);
+            halfcnt[ch-'a']--;
+
+            boolean isgreater=greater || ch>target.charAt(i);
+            if(helper(lefthalf,halfcnt,target,i+1,isgreater)) return true;
+
+            lefthalf.deleteCharAt(i);
+            halfcnt[ch-'a']++;
+        }
+        return false;
+    }
+
+    public String lexPalindromicPermutation(String s, String target) {
+        half=s.length() / 2;
+        //A palindrome is fully determined by its first half (+ mid char if odd length) → only decide half = n/2 positions, mirror the rest
+        int[] freq=new int[26];
+        for(char ch:s.toCharArray()) freq[ch-'a']++;
+        int oddcnt=0;
+        for(int c=0;c<26;c++){
+            if(freq[c]%2==1){
+                oddcnt++;
+                midchar=(char) (c+'a');
+            }
+        }
+        if(oddcnt>1) return "";//no palindromic permutation possible
+        int[] halfcnt=new int[26];
+        for(int c=0;c<26;c++){
+            halfcnt[c]=freq[c]/2;
+        }
+        StringBuilder lefthalf=new StringBuilder();
+        helper(lefthalf,halfcnt,target,0,false);
+        return res;
+    }
+}
