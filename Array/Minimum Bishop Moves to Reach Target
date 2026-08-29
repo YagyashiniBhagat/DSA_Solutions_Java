@@ -1,0 +1,11 @@
+class Solution {
+    public int minBishopMoves(int[] source, int[] target) {
+        int sy=source[0],sx=source[1],ty=target[0],tx=target[1];
+        //the source & target should be in the same colour 
+        if((sy+sx)%2 != (ty+tx)%2) return -1;
+        //if in the same daigonal
+        if((sy-sx == ty-tx) || (sy+sx == ty+tx)) return 1;
+        //if not in the same diagonal
+        return 2;
+    }
+}©leetcode
