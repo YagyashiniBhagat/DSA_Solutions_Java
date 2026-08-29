@@ -1,0 +1,47 @@
+class Solution {
+    public int[] lexicographicallySmallestArray(int[] nums, int limit) {
+        // int n=nums.length;
+        // for(int i=0;i<n;i++){
+
+        //     while(true){
+        //         int smallval=nums[i],idx=-1;
+        //         for(int j=i+1;j<n;j++){
+        //             if(Math.abs(nums[i]-nums[j])<=limit){
+        //                 if(nums[j]<smallval){
+        //                     smallval=nums[j];
+        //                     idx=j;
+        //                 }
+        //             }
+        //         }
+        //         if(idx!=-1) swap(nums,i,idx);
+        //         else break;
+        //     }
+
+        // }
+        // return nums;
+
+        int n=nums.length;
+        int[] vec=nums.clone();
+        Arrays.sort(vec);
+        int grp=0;
+        Map<Integer,Integer> whichgrp=new HashMap<>();
+        Map<Integer,LinkedList<Integer>> nosingrp=new HashMap<>();
+        whichgrp.put(vec[0],grp);
+        nosingrp.putIfAbsent(grp,new LinkedList<>());
+        nosingrp.get(grp).add(vec[0]);
+
+        for(int i=1;i<n;i++){
+            if(vec[i]-vec[i-1] > limit) grp++;
+            
+            whichgrp.put(vec[i],grp);
+            nosingrp.putIfAbsent(grp,new LinkedList<>());
+            nosingrp.get(grp).add(vec[i]);
+        }
+
+        for(int i=0;i<n;i++){
+            int group=whichgrp.get(nums[i]);
+            nums[i]=nosingrp.get(group).pollFirst();
+        }
+        return nums;
+    }
+}
