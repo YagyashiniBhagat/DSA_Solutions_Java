@@ -1,0 +1,38 @@
+class Solution {
+    
+    //finding the first checkpoint >= r --> that interval must contain rank r
+    public int findinterval(int[] prefixarr, int low, int high, int r){
+        while(low<high){
+            int mid=low+(high-low)/2;
+            //checkpoint too small rank r hasnt been reached yet
+            if(prefixarr[mid] < r) low=mid+1;
+            //checkpoint big but an earlier one might also work thats why high=mid-1 nhi kre bss high=mid
+            else high=mid;
+        }
+        return low;
+    }
+    
+    public ArrayList<Integer> getMarks(int[] l, int[] r, int[] rank) {
+        // code here
+        ArrayList<Integer> ans=new ArrayList<>();
+        int n=l.length;
+        int[] prefixarr=new int[n];
+        prefixarr[0]=r[0]-l[0]+1;
+        
+        //prefixarr[i]=the last rank covered by this interval
+        //rank of the last mark in the interval i
+        for(int i=1;i<n;i++){
+            prefixarr[i]=prefixarr[i-1]+(r[i]-l[i]+1);
+        }
+        
+        for(int i=0;i<rank.length;i++){
+            
+            int idx=findinterval(prefixarr,0,n-1,rank[i]);
+            int diff=prefixarr[idx]-rank[i];//how many steps back our rank is in the interval
+            int res=r[idx]-diff;
+            //mark & rank move 1 to 1 inside an interval, so same steps back from the last mark
+            ans.add(res);
+        }
+        return ans;
+    }
+}
