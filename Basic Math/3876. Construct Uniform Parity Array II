@@ -1,0 +1,15 @@
+class Solution {
+    public boolean uniformArray(int[] nums1) {
+        int smallestele=Integer.MAX_VALUE;
+        for(int num:nums1) smallestele=Math.min(smallestele,num);
+
+        if(smallestele %2==1) return true;// odd then we can convert all even to odd. all nums2 will be odd
+
+        //check if we can make all elements even in nums2 which is possible if all the elements in nums1 is even
+        for(int num:nums1){
+            if(num%2==1) return false;
+        }
+
+        return true;
+    }
+}
