@@ -14,8 +14,12 @@ class Node{
     }
 }
 
-class Solution {
-    Node root=new Node();
+class Trie{
+    public static Node root;
+
+    Trie(){
+        root=new Node();
+    }
 
     public void insert(int num){
         Node node=root;
@@ -39,11 +43,14 @@ class Solution {
         }
         return maxxor;
     }
+}
 
+class Solution {
     public int findMaximumXOR(int[] nums) {
-        for(int num:nums) insert(num);
+        Trie obj=new Trie();
+        for(int num:nums) obj.insert(num);
         int res=0;
-        for(int num:nums) res=Math.max(res,getmaxxor(num));
+        for(int num:nums) res=Math.max(res,obj.getmaxxor(num));
 
         return res;
     }
