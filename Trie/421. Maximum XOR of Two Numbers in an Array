@@ -1,0 +1,50 @@
+class Node{
+    Node links[]=new Node[2];
+
+    boolean containskey(int bit){
+        return links[bit]!=null;
+    }
+
+    Node get(int bit){
+        return links[bit];
+    }
+
+    void put(int bit,Node node){
+        links[bit]=node;
+    }
+}
+
+class Solution {
+    Node root=new Node();
+
+    public void insert(int num){
+        Node node=root;
+        for(int i=31;i>=0;i--){
+            int bit=(num>>i)&1;
+            if(!node.containskey(bit)) node.put(bit,new Node());
+            node=node.get(bit);
+        }
+    }
+
+    public int getmaxxor(int num){
+        Node node=root;
+        int maxxor=0;
+        for(int i=31;i>=0;i--){
+            int bit=(num>>i)&1;
+            if(node.containskey(1-bit)){
+                maxxor=maxxor | (1<<i);//to turn on the bit
+                node=node.get(1-bit);
+            }
+            else node=node.get(bit);
+        }
+        return maxxor;
+    }
+
+    public int findMaximumXOR(int[] nums) {
+        for(int num:nums) insert(num);
+        int res=0;
+        for(int num:nums) res=Math.max(res,getmaxxor(num));
+
+        return res;
+    }
+}
