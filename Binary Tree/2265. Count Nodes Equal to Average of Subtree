@@ -1,0 +1,49 @@
+class Solution {
+    // int res;
+    // int findsum(TreeNode root,int[] cnt){
+    //     if(root==null) return 0;
+    //     cnt[0]++;
+    //     int ls=findsum(root.left,cnt);
+    //     int rs=findsum(root.right,cnt);
+
+    //     return ls+rs+root.val;
+    // }
+
+    // void solve(TreeNode root){
+    //     if(root==null) return;
+    //     int[] cnt={0};
+    //     int sum=findsum(root,cnt);
+    //     if(sum/cnt[0]==root.val) res++;
+    //     solve(root.left);
+    //     solve(root.right);
+    // }
+
+    // public int averageOfSubtree(TreeNode root) {
+    //     res=0;
+    //     solve(root);
+    //     return res;
+    // }
+
+    int res;
+
+    Pair<Integer, Integer> solve(TreeNode root){
+        if(root==null) return new Pair<>(0,0);
+
+        Pair<Integer, Integer> left=solve(root.left);
+        Pair<Integer, Integer> right=solve(root.right);
+
+        int ls=left.getKey(), lcnt=left.getValue();
+        int rs=right.getKey(), rcnt=right.getValue();
+
+        int sum=ls+rs+root.val;
+        int cnt=lcnt+rcnt+1;
+        if(sum/cnt == root.val) res++;
+
+        return new Pair<>(sum,cnt);
+    }
+    public int averageOfSubtree(TreeNode root) {
+        res=0;
+        solve(root);
+        return res;
+    }
+}
