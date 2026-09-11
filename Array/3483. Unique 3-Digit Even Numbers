@@ -1,0 +1,26 @@
+class Solution {
+    public int totalNumbers(int[] digits) {
+        int cnt=0;
+        int[] arr=new int[10];
+        Arrays.fill(arr,0);
+        for(int num:digits) arr[num]++;
+        for(int i=1;i<=9;i++){
+            if(arr[i]==0) continue;
+            arr[i]--;
+
+            for(int j=0;j<=9;j++){
+                if(arr[j]==0) continue;
+                arr[j]--;
+                for(int k=0;k<=8;k+=2){
+                    if(arr[k]==0) continue;
+                    arr[k]--;
+                    cnt++;
+                    arr[k]++;
+                }
+                arr[j]++;
+            }
+            arr[i]++;
+        }
+        return cnt;
+    }
+}
